@@ -23,3 +23,11 @@ light_energy = 1.5
 light_volumetric_fog_energy = 2.0
 spot_range = 20.0
 spot_angle = 35.0
+
+[node name="LedgeDetector" type="RayCast3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.5, 0)
+target_position = Vector3(0, 0, -1)
+
+[node name="LedgeValidator" type="RayCast3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 2, -1)
+target_position = Vector3(0, -1, 0)

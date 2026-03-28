@@ -13,11 +13,17 @@ extends CharacterBody3D
 @export_group("Camera")
 @export var mouse_sensitivity: float = 0.1
 
+@export_group("Vaulting")
+@export var vault_duration: float = 0.5
+
 @onready var head = $Head
 @onready var camera = $Head/Camera3D
 @onready var flashlight = $Head/Camera3D/Flashlight
+@onready var ledge_detector = $LedgeDetector
+@onready var ledge_validator = $LedgeValidator
 
 var _gravity: float
+var is_vaulting: bool = false
 
 func _ready() -> void:
 	_gravity = ProjectSettings.get_setting("physics/3d/default_gravity") * gravity_scale
@@ -30,8 +36,14 @@ func _unhandled_input(event: InputEvent) -> void:
 
 	if event.is_action_just_pressed("flashlight"):
 		flashlight.visible = not flashlight.visible
+	
+	if event.is_action_just_pressed("vault") and can_vault():
+		perform_vault()
 
 func _physics_process(delta: float) -> void:
+	if is_vaulting:
+		return
+
 	# Gravity
 	if not is_on_floor():
 		velocity.y -= _gravity * delta
@@ -52,3 +64,15 @@ func _physics_process(delta: float) -> void:
 		velocity.z = lerp(velocity.z, 0.0, deceleration)
 
 	move_and_slide()
+
+func can_vault() -> bool:
+	return ledge_detector.is_colliding() and not ledge_validator.is_colliding()
+
+func perform_vault() -> void:
+	is_vaulting = true
+	var vault_start = global_transform.origin
+	var vault_end = ledge_detector.get_collision_point() + Vector3(0, 1, 0)
+
+	var tween = create_tween()
+	tween.tween_property(self, "global_transform.origin", vault_end, vault_duration).set_trans(Tween.TRANS_SINE)
+	tween.tween_callback(func(): is_vaulting = false)
