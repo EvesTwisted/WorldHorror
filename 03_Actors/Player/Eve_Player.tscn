@@ -33,6 +33,7 @@ bone_name = "Spine2"
 
 [node name="Camera3D" type="Camera3D" parent="Pivot/female_body_a-pose__t-pose_free/Armature/Skeleton3D/ShoulderBone"]
 near = 0.01
+unique_name_in_owner = true
 
 [node name="RightHandBone" type="BoneAttachment3D" parent="Pivot/female_body_a-pose__t-pose_free/Armature/Skeleton3D"]
 bone_name = "RightHand"
@@ -43,6 +44,7 @@ light_energy = 1.5
 light_volumetric_fog_energy = 2.0
 spot_range = 20.0
 spot_angle = 35.0
+unique_name_in_owner = true
 
 [node name="AnimationTree" type="AnimationTree" parent="."]
 tree_root = SubResource("AnimationNodeStateMachine_main")
