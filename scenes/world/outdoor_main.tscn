@@ -1,11 +1,29 @@
-[gd_scene load_steps=3 format=3 uid="uid://c1x8v8x8v8x8"]
+[gd_scene load_steps=4 format=3 uid="uid://c1x8v8x8v8x8"]
 
-[ext_resource type="PackedScene" uid="uid://c1x8v8x8v8x8" path="res://scenes/world/outdoor_main.tscn" id="1_it1yc"]
+[ext_resource type="PackedScene" uid="uid://dixv1w1h5k2k" path="res://03_Actors/Player/Eve_Player.tscn" id="1_abcde"]
 
-[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_lex1q"]
-albedo_color = Color(0, 0.6, 0, 1)
+[sub_resource type="WorldBoundaryShape3D" id="WorldBoundaryShape3D_xyz"]
 
+[node name="OutdoorMain" type="Node3D"]
 
+[node name="Floor" type="StaticBody3D" parent="."]
 
-[node name="GreenFloor" parent="." index="1"]
-material = SubResource("StandardMaterial3D_lex1q")
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Floor"]
+shape = SubResource("WorldBoundaryShape3D_xyz")
+
+[node name="Eve_Player" parent="." instance=ExtResource("1_abcde")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1, 0)
+
+[node name="Obstacles" type="Node3D" parent="."]
+
+[node name="VaultingBlock" type="CSGBox3D" parent="Obstacles"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -5, 0.7, -5)
+size = Vector3(2, 1.4, 2)
+
+[node name="LeanPillar" type="CSGBox3D" parent="Obstacles"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 5, 1.5, 5)
+size = Vector3(0.5, 3, 0.5)
+
+[node name="CrouchTunnel" type="CSGBox3D" parent="Obstacles"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 2, 0.4, -3)
+size = Vector3(2, 0.8, 4)

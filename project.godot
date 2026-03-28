@@ -14,6 +14,10 @@ config/name="World Horror"
 run/main_scene="res://scenes/ui/main_menu.tscn"
 config/features=PackedStringArray("4.5")
 
+[physics]
+
+common/enable_physics_interpolation=true
+
 [autoload]
 
 InventoryManager="*res://01_Core_Systems/InventoryManager.gd"
