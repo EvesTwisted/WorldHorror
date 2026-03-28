@@ -2,14 +2,17 @@
 
 [ext_resource type="Script" path="res://03_Actors/Player/player.gd" id="1_script"]
 
-[sub_resource type="CapsuleMesh" id="CapsuleMesh_placeholder"]
+[sub_resource type="CylinderMesh" id="CylinderMesh_Body"]
+top_radius = 0.4
+bottom_radius = 0.4
+height = 1.8
 
 [node name="Eve_Player" type="CharacterBody3D"]
 script = ExtResource("1_script")
 
 [node name="PlaceholderMesh" type="MeshInstance3D" parent="."]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1, 0)
-mesh = SubResource("CapsuleMesh_placeholder")
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.9, 0)
+mesh = SubResource("CylinderMesh_Body")
 
 [node name="Head" type="Node3D" parent="."]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.8, 0)
