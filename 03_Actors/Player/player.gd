@@ -3,7 +3,8 @@ extends CharacterBody3D
 @export_group("Movement")
 @export var walk_speed: float = 2.0
 @export var sprint_speed: float = 4.0
-@export var acceleration: float = 10.0
+@export var acceleration: float = 0.8 # This is now a lerp factor
+@export var deceleration: float = 0.1 # For the "weight skid"
 
 @export_group("Jumping")
 @export var jump_velocity: float = 4.5
@@ -12,15 +13,18 @@ extends CharacterBody3D
 @export_group("Camera")
 @export var mouse_sensitivity: float = 0.1
 
+@onready var animation_tree = $AnimationTree
+@onready var state_machine = animation_tree.get("parameters/playback")
 @onready var pivot = $Pivot
-@onready var camera = $Pivot/character_female_apocalyptic/Armature/Skeleton3D/HeadBone/Camera3D
-@onready var flashlight = $Pivot/character_female_apocalyptic/Armature/Skeleton3D/RightHandBone/Flashlight
+@onready var camera = $Pivot/character_t_pose_amy_rebel/Armature/Skeleton3D/HeadBone/Camera3D
+@onready var flashlight = $Pivot/character_t_pose_amy_rebel/Armature/Skeleton3D/RightHandBone/Flashlight
 
 var _gravity: float
 
 func _ready() -> void:
 	_gravity = ProjectSettings.get_setting("physics/3d/default_gravity") * gravity_scale
 	Input.mouse_mode = Input.MOUSE_MODE_CAPTURED
+	animation_tree.active = true
 
 func _unhandled_input(event: InputEvent) -> void:
 	if event is InputEventMouseMotion:
@@ -31,6 +35,11 @@ func _unhandled_input(event: InputEvent) -> void:
 		flashlight.visible = not flashlight.visible
 
 func _physics_process(delta: float) -> void:
+	# --- Animation Parameters ---
+	var input_dir_anim = Input.get_vector("move_left", "move_right", "move_forward", "move_backward")
+	animation_tree.set("parameters/BlendSpace2D/blend_position", input_dir_anim)
+
+	# --- Player Logic ---
 	# Gravity
 	if not is_on_floor():
 		velocity.y -= _gravity * delta
@@ -42,7 +51,12 @@ func _physics_process(delta: float) -> void:
 	var speed = sprint_speed if is_sprinting else walk_speed
 
 	var target_velocity = direction * speed
-	velocity.x = lerp(velocity.x, target_velocity.x, acceleration * delta)
-	velocity.z = lerp(velocity.z, target_velocity.z, acceleration * delta)
+
+	if direction != Vector3.ZERO:
+		velocity.x = lerp(velocity.x, target_velocity.x, acceleration)
+		velocity.z = lerp(velocity.z, target_velocity.z, acceleration)
+	else:
+		velocity.x = lerp(velocity.x, 0.0, deceleration)
+		velocity.z = lerp(velocity.z, 0.0, deceleration)
 
 	move_and_slide()
