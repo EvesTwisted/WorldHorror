@@ -35,11 +35,6 @@ func _unhandled_input(event: InputEvent) -> void:
 		flashlight.visible = not flashlight.visible
 
 func _physics_process(delta: float) -> void:
-	# --- Animation Parameters ---
-	var input_dir_anim = Input.get_vector("move_left", "move_right", "move_forward", "move_backward")
-	animation_tree.set("parameters/BlendSpace2D/blend_position", input_dir_anim)
-
-	# --- Player Logic ---
 	# Gravity
 	if not is_on_floor():
 		velocity.y -= _gravity * delta
@@ -58,5 +53,9 @@ func _physics_process(delta: float) -> void:
 	else:
 		velocity.x = lerp(velocity.x, 0.0, deceleration)
 		velocity.z = lerp(velocity.z, 0.0, deceleration)
+
+	# Animation Control
+	var move_blend = velocity.length() / sprint_speed
+	animation_tree.set("parameters/BlendSpace2D/blend_position", move_blend)
 
 	move_and_slide()

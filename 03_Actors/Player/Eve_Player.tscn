@@ -47,3 +47,4 @@ spot_angle = 35.0
 [node name="AnimationTree" type="AnimationTree" parent="."]
 tree_root = SubResource("AnimationNodeStateMachine_main")
 anim_player = NodePath("Pivot/character_t_pose_amy_rebel/AnimationPlayer")
+process_callback = 1 # Physics
