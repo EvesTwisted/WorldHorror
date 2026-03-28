@@ -1,6 +1,6 @@
 [gd_scene load_steps=4 format=3 uid="uid://c1x8v8x8v8x8"]
 
-[ext_resource type="PackedScene" uid="uid://dixv1w1h5k2k" path="res://03_Actors/Player/Eve_Player.tscn" id="1_abcde"]
+[ext_resource type="PackedScene" uid="uid://eveplayer" path="res://03_Actors/Player/Eve_Player.tscn" id="1_abcde"]
 
 [sub_resource type="WorldBoundaryShape3D" id="WorldBoundaryShape3D_xyz"]
 
