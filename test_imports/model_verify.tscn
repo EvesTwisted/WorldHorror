@@ -1,0 +1,7 @@
+[gd_scene load_steps=2 format=3]
+
+[ext_resource type="PackedScene" path="res://04_Assets/assets/meshes/female_body_a-pose__t-pose_free.glb" id="1_model"]
+
+[node name="ModelTest" type="Node3D"]
+
+[node name="female_body_a-pose__t-pose_free" parent="." instance=ExtResource("1_model")]
