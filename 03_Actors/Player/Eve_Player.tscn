@@ -1,52 +1,25 @@
-[gd_scene load_steps=7 format=3 uid="uid://eveplayer"]
+[gd_scene load_steps=4 format=3 uid="uid://eveplayer"]
 
 [ext_resource type="Script" path="res://03_Actors/Player/player.gd" id="1_script"]
-[ext_resource type="PackedScene" path="res://04_Assets/assets/meshes/female_body_a-pose__t-pose_free.glb" id="2_model"]
 
-[sub_resource type="CapsuleShape3D" id="CapsuleShape3D_player"]
-height = 1.7
-radius = 0.4
-
-[sub_resource type="AnimationNodeBlendSpace2D" id="AnimationNodeBlendSpace2D_main"]
-
-[sub_resource type="AnimationNodeStateMachineTransition" id="AnimationNodeStateMachineTransition_to_blend_space"]
-
-[sub_resource type="AnimationNodeStateMachine" id="AnimationNodeStateMachine_main"]
-states/BlendSpace2D/node = SubResource("AnimationNodeBlendSpace2D_main")
-states/BlendSpace2D/position = Vector2(400, 100)
-states/Start/position = Vector2(200, 100)
-transitions = ["Start", "BlendSpace2D", SubResource("AnimationNodeStateMachineTransition_to_blend_space")]
+[sub_resource type="CapsuleMesh" id="CapsuleMesh_placeholder"]
 
 [node name="Eve_Player" type="CharacterBody3D"]
 script = ExtResource("1_script")
 
-[node name="CollisionShape3D" type="CollisionShape3D" parent="."]
+[node name="PlaceholderMesh" type="MeshInstance3D" parent="."]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1, 0)
-shape = SubResource("CapsuleShape3D_player")
+mesh = SubResource("CapsuleMesh_placeholder")
 
-[node name="Pivot" type="Node3D" parent="."]
+[node name="Head" type="Node3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.8, 0)
 
-[node name="female_body_a-pose__t-pose_free" parent="Pivot" instance=ExtResource("2_model")]
-
-[node name="ShoulderBone" type="BoneAttachment3D" parent="Pivot/female_body_a-pose__t-pose_free/Armature/Skeleton3D"]
-bone_name = "Spine2"
-
-[node name="Camera3D" type="Camera3D" parent="Pivot/female_body_a-pose__t-pose_free/Armature/Skeleton3D/ShoulderBone"]
+[node name="Camera3D" type="Camera3D" parent="Head"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 0.12)
 near = 0.01
-unique_name_in_owner = true
 
-[node name="RightHandBone" type="BoneAttachment3D" parent="Pivot/female_body_a-pose__t-pose_free/Armature/Skeleton3D"]
-bone_name = "RightHand"
-
-[node name="Flashlight" type="SpotLight3D" parent="Pivot/female_body_a-pose__t-pose_free/Armature/Skeleton3D/RightHandBone"]
-transform = Transform3D(1, 0, 0, 0, -4.37114e-08, 1, 0, -1, -4.37114e-08, 0, 0, 0)
+[node name="Flashlight" type="SpotLight3D" parent="Head/Camera3D"]
 light_energy = 1.5
 light_volumetric_fog_energy = 2.0
 spot_range = 20.0
 spot_angle = 35.0
-unique_name_in_owner = true
-
-[node name="AnimationTree" type="AnimationTree" parent="."]
-tree_root = SubResource("AnimationNodeStateMachine_main")
-anim_player = NodePath("Pivot/female_body_a-pose__t-pose_free/AnimationPlayer")
-process_callback = 1 # Physics
