@@ -17,8 +17,8 @@ extends CharacterBody3D
 @export var vault_duration: float = 0.5
 
 @onready var head_pivot = $HeadPivot
-@onready var camera = $%Camera3D
-@onready var flashlight = $%Flashlight
+@onready var camera = $HeadPivot/Camera3D
+@onready var flashlight = $HeadPivot/Camera3D/Flashlight
 @onready var ledge_detector = $LedgeDetector
 @onready var ledge_validator = $LedgeValidator
 
