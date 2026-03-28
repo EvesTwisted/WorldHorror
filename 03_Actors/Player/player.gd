@@ -16,8 +16,8 @@ extends CharacterBody3D
 @onready var animation_tree = $AnimationTree
 @onready var state_machine = animation_tree.get("parameters/playback")
 @onready var pivot = $Pivot
-@onready var camera = $%Camera3D
-@onready var flashlight = $%Flashlight
+@onready var camera = $"Pivot/female_body_a-pose__t-pose_free/Armature/Skeleton3D/ShoulderBone/Camera3D"
+@onready var flashlight = $"Pivot/female_body_a-pose__t-pose_free/Armature/Skeleton3D/RightHandBone/Flashlight"
 
 var _gravity: float
 
