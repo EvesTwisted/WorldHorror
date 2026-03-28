@@ -1,0 +1,21 @@
+; Engine configuration file.
+; It's best edited using the editor UI and not directly,
+; since the parameters that go here are not all obvious.
+;
+; Format:
+;   [section] ; section goes between []
+;   param=value ; assign values to parameters
+
+config_version=5
+
+[application]
+
+config/name="World Horror"
+run/main_scene="res://scenes/ui/main_menu.tscn"
+config/features=PackedStringArray("4.5")
+
+[autoload]
+
+InventoryManager="*res://01_Core_Systems/InventoryManager.gd"
+Metabolism="*res://01_Core_Systems/Metabolism.gd"
+SignalBus="*res://01_Core_Systems/SignalBus.gd"

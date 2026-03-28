@@ -1,0 +1,11 @@
+[gd_scene load_steps=3 format=3 uid="uid://c1x8v8x8v8x8"]
+
+[ext_resource type="PackedScene" uid="uid://c1x8v8x8v8x8" path="res://scenes/world/outdoor_main.tscn" id="1_it1yc"]
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_lex1q"]
+albedo_color = Color(0, 0.6, 0, 1)
+
+
+
+[node name="GreenFloor" parent="." index="1"]
+material = SubResource("StandardMaterial3D_lex1q")
