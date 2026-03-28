@@ -2,7 +2,7 @@
 
 [ext_resource type="Script" path="res://03_Actors/Player/player.gd" id="1_script"]
 
-[sub_resource type="CylinderMesh" id="CylinderMesh_Body"]
+[sub_resource type="CylinderMesh" id="CylinderMesh_Shadow"]
 top_radius = 0.4
 bottom_radius = 0.4
 height = 1.8
@@ -12,22 +12,20 @@ script = ExtResource("1_script")
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="."]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.9, 0)
-shape = SubResource("CylinderMesh_Body")
 
-[node name="MeshPivot" type="Node3D" parent="."]
-
-[node name="BodyMesh" type="MeshInstance3D" parent="MeshPivot"]
+[node name="ShadowProxy" type="MeshInstance3D" parent="."]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.9, 0)
-mesh = SubResource("CylinderMesh_Body")
+mesh = SubResource("CylinderMesh_Shadow")
+cast_shadow = 2 # Shadows Only
 
-[node name="HeadPivot" type="Node3D" parent="MeshPivot"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.8, 0)
+[node name="HeadPivot" type="Node3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.7, 0)
 
-[node name="Camera3D" type="Camera3D" parent="MeshPivot/HeadPivot"]
+[node name="Camera3D" type="Camera3D" parent="HeadPivot"]
 unique_name_in_owner = true
 near = 0.01
 
-[node name="Flashlight" type="SpotLight3D" parent="MeshPivot/HeadPivot/Camera3D"]
+[node name="Flashlight" type="SpotLight3D" parent="HeadPivot/Camera3D"]
 unique_name_in_owner = true
 light_energy = 1.5
 light_volumetric_fog_energy = 2.0
