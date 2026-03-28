@@ -16,9 +16,8 @@ extends CharacterBody3D
 @export_group("Vaulting")
 @export var vault_duration: float = 0.5
 
-@onready var head_pivot = $HeadPivot
-@onready var camera = $HeadPivot/Camera3D
-@onready var flashlight = $HeadPivot/Camera3D/Flashlight
+@onready var camera = $Camera3D
+@onready var flashlight = $Camera3D/Flashlight
 @onready var ledge_detector = $LedgeDetector
 @onready var ledge_validator = $LedgeValidator
 
@@ -31,8 +30,9 @@ func _ready() -> void:
 
 func _unhandled_input(event: InputEvent) -> void:
 	if event is InputEventMouseMotion:
-		head_pivot.rotate_y(deg_to_rad(-event.relative.x * mouse_sensitivity))
-		camera.rotation.x = clamp(camera.rotation.x + deg_to_rad(-event.relative.y * mouse_sensitivity), deg_to_rad(-80), deg_to_rad(80))
+		rotate_y(deg_to_rad(-event.relative.x * mouse_sensitivity))
+		camera.rotate_x(deg_to_rad(-event.relative.y * mouse_sensitivity))
+		camera.rotation.x = clamp(camera.rotation.x, deg_to_rad(-80), deg_to_rad(80))
 
 	if event.is_action_just_pressed("flashlight"):
 		flashlight.visible = not flashlight.visible
@@ -50,7 +50,7 @@ func _physics_process(delta: float) -> void:
 
 	# Movement
 	var input_dir = Input.get_vector("move_left", "move_right", "move_forward", "move_backward")
-	var direction = (head_pivot.transform.basis * Vector3(input_dir.x, 0, input_dir.y)).normalized()
+	var direction = (transform.basis * Vector3(input_dir.x, 0, input_dir.y)).normalized()
 	var is_sprinting = Input.is_action_pressed("sprint")
 	var speed = sprint_speed if is_sprinting else walk_speed
 
