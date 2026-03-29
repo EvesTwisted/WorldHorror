@@ -17,12 +17,12 @@ extends CharacterBody3D
 @export var vault_duration: float = 0.5
 
 @onready var camera = $Camera3D
-@onready var flashlight = $Camera3D/Flashlight
+@onready var flashlight = $Flashlight
 @onready var ledge_detector = $LedgeDetector
 @onready var ledge_validator = $LedgeValidator
 
 var _gravity: float
-var is_vaulting: bool = false
+var _is_vaulting: bool = false
 var static_stress: float = 0.0
 
 signal stress_changed(new_stress: float)
@@ -50,7 +50,7 @@ func _unhandled_input(event: InputEvent) -> void:
 		perform_vault()
 
 func _physics_process(delta: float) -> void:
-	if is_vaulting:
+	if _is_vaulting:
 		return
 
 	# Gravity
@@ -99,10 +99,10 @@ func can_vault() -> bool:
 	return ledge_detector.is_colliding() and not ledge_validator.is_colliding()
 
 func perform_vault() -> void:
-	is_vaulting = true
-	var vault_start = global_transform.origin
+	_is_vaulting = true
+	var _vault_start = global_transform.origin
 	var vault_end = ledge_detector.get_collision_point() + Vector3(0, 1, 0)
 
 	var tween = create_tween()
 	tween.tween_property(self, "global_transform.origin", vault_end, vault_duration).set_trans(Tween.TRANS_SINE)
-	tween.tween_callback(func(): is_vaulting = false)
+	tween.tween_callback(func(): _is_vaulting = false)
