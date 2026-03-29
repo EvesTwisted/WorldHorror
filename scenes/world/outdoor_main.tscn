@@ -1,6 +1,7 @@
-[gd_scene load_steps=4 format=3 uid="uid://c1x8v8x8v8x8"]
+[gd_scene load_steps=5 format=3 uid="uid://c1x8v8x8v8x8"]
 
 [ext_resource type="PackedScene" uid="uid://eveplayer" path="res://03_Actors/Player/Eve_Player.tscn" id="1_abcde"]
+[ext_resource type="Script" path="res://01_Core_Systems/WeatherSystem.gd" id="2_xyz"]
 
 [sub_resource type="WorldBoundaryShape3D" id="WorldBoundaryShape3D_xyz"]
 
@@ -13,6 +14,7 @@ shape = SubResource("WorldBoundaryShape3D_xyz")
 
 [node name="Eve_Player" parent="." instance=ExtResource("1_abcde")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1, 0)
+groups=["Player"]
 
 [node name="Obstacles" type="Node3D" parent="."]
 
@@ -27,3 +29,6 @@ size = Vector3(0.5, 3, 0.5)
 [node name="CrouchTunnel" type="CSGBox3D" parent="Obstacles"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 2, 0.4, -3)
 size = Vector3(2, 0.8, 4)
+
+[node name="WeatherSystem" type="Node" parent="."]
+script = ExtResource("2_xyz")

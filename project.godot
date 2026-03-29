@@ -20,6 +20,10 @@ InventoryManager="*res://01_Core_Systems/InventoryManager.gd"
 Metabolism="*res://01_Core_Systems/Metabolism.gd"
 SignalBus="*res://01_Core_Systems/SignalBus.gd"
 
+[editor_plugins]
+
+enabled=PackedStringArray("res://addons/godot-smart-graphics-settings/plugin.cfg", "res://addons/ambient_cg_downloader/plugin.cfg", "res://addons/godot_weather_system/plugin.cfg")
+
 [physics]
 
 common/enable_physics_interpolation=true

@@ -23,6 +23,9 @@ extends CharacterBody3D
 
 var _gravity: float
 var is_vaulting: bool = false
+var static_stress: float = 0.0
+
+signal stress_changed(new_stress: float)
 
 func _ready() -> void:
 	_gravity = ProjectSettings.get_setting("physics/3d/default_gravity") * gravity_scale
@@ -64,6 +67,10 @@ func _physics_process(delta: float) -> void:
 		velocity.z = lerp(velocity.z, 0.0, deceleration)
 
 	move_and_slide()
+
+	# Stress
+	static_stress = clamp(static_stress + 0.1 * delta, 0.0, 100.0)
+	stress_changed.emit(static_stress)
 
 func can_vault() -> bool:
 	return ledge_detector.is_colliding() and not ledge_validator.is_colliding()
