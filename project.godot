@@ -22,7 +22,7 @@ SignalBus="*res://01_Core_Systems/SignalBus.gd"
 
 [editor_plugins]
 
-enabled=PackedStringArray("res://addons/ambient_cg_downloader/plugin.cfg", "res://addons/godot-smart-graphics-settings/plugin.cfg", "res://addons/godot_weather_system/plugin.cfg", "res://addons/shader_library/plugin.cfg")
+enabled=PackedStringArray("res://addons/godot-smart-graphics-settings/plugin.cfg", "res://addons/godot_weather_system/plugin.cfg")
 
 [physics]
 
