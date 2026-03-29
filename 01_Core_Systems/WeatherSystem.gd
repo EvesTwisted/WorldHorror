@@ -10,9 +10,9 @@ func _ready() -> void:
 func _on_stress_changed(new_stress: float) -> void:
 	if world_environment:
 		var env = world_environment.environment
-		if new_stress < 30:
-			env.volumetric_fog_density = 0.05
-			print("Weather: Clear Skies")
-		elif new_stress > 70:
-			env.volumetric_fog_density = 0.2
-			print("Weather: Heavy Fog")
+		if new_stress > 50:
+			env.volumetric_fog_density = 0.1
+			env.background_energy_multiplier = 0.5
+		else:
+			env.volumetric_fog_density = 0.01
+			env.background_energy_multiplier = 1.0

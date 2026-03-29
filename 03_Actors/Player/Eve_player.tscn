@@ -1,7 +1,6 @@
 [gd_scene load_steps=5 format=3 uid="uid://eveplayer"]
 
 [ext_resource type="Script" uid="uid://gss7qhymkm80" path="res://03_Actors/Player/player.gd" id="1_script"]
-[ext_resource type="PackedScene" uid="uid://gwvboi3tch0d" path="res://addons/fps-hands/fps-c19/fps-c19.tscn" id="2_c19"]
 
 [sub_resource type="CapsuleShape3D" id="CapsuleShape3D_lr2pa"]
 
@@ -31,7 +30,6 @@ spot_angle = 35.0
 
 [node name="Camera3D" type="Camera3D" parent="."]
 
-[node name="fps-c19" parent="Camera3D" instance=ExtResource("2_c19")]
 
 [node name="LedgeDetector" type="RayCast3D" parent="."]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.5, 0)
