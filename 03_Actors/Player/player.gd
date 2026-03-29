@@ -40,10 +40,12 @@ func _unhandled_input(event: InputEvent) -> void:
 		camera.rotate_x(deg_to_rad(-event.relative.y * mouse_sensitivity))
 		camera.rotation.x = clamp(camera.rotation.x, deg_to_rad(-80), deg_to_rad(80))
 
-		if event.is_action_just_pressed("toggle_phone"):
-		toggle_phone()
+	if event.is_action_just_pressed("flashlight"):
 		flashlight.visible = not flashlight.visible
 	
+	if event.is_action_just_pressed("toggle_phone"):
+		toggle_phone()
+
 	if event.is_action_just_pressed("vault") and can_vault():
 		perform_vault()
 
@@ -54,6 +56,10 @@ func _physics_process(delta: float) -> void:
 	# Gravity
 	if not is_on_floor():
 		velocity.y -= _gravity * delta
+
+	# Stress
+	static_stress = clamp(static_stress + 0.1 * delta, 0.0, 100.0)
+	stress_changed.emit(static_stress)
 
 	# Movement
 	var input_dir = Input.get_vector("move_left", "move_right", "move_forward", "move_backward")
@@ -88,10 +94,6 @@ func _on_stress_slider_changed(value: float) -> void:
 
 func _on_graphics_button_pressed() -> void:
 	print("Graphics button pressed!")
-
-	# Stress
-	static_stress = clamp(static_stress + 0.1 * delta, 0.0, 100.0)
-	stress_changed.emit(static_stress)
 
 func can_vault() -> bool:
 	return ledge_detector.is_colliding() and not ledge_validator.is_colliding()
