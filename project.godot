@@ -16,6 +16,7 @@ config/features=PackedStringArray("4.5")
 
 [autoload]
 
+SmartGraphicsSettings="*res://addons/godot-smart-graphics-settings/plugin.gd"
 InventoryManager="*res://01_Core_Systems/InventoryManager.gd"
 Metabolism="*res://01_Core_Systems/Metabolism.gd"
 SignalBus="*res://01_Core_Systems/SignalBus.gd"

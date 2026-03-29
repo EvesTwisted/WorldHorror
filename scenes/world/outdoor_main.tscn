@@ -11,21 +11,10 @@ shader = ExtResource("3_abcde")
 shader_parameter/stress = 0.0
 shader_parameter/speed = 5.0
 shader_parameter/intensity = 0.1
-[sub_resource type="Environment" id="Environment_main"]
-background_mode = 1
-background_color = Color(0.1, 0.1, 0.1, 1)
-ambient_light_source = 3
-ambient_light_color = Color(0.1, 0.1, 0.1, 1)
-tonemap_mode = 2
-ssao_enabled = true
-sdfgi_enabled = true
-volumetric_fog_enabled = true
-volumetric_fog_density = 0.01
-
-[node name="OutdoorMain" type="Node3D"]
+[ext_resource type="Environment" uid="uid://worldenv" path="res://godotweathersystem/addons/GodotWeatherSystem/nodes/world_environment.tscn" id="4_xyz"]
 
 [node name="WorldEnvironment" type="WorldEnvironment" parent="."]
-environment = SubResource("Environment_main")
+environment = ExtResource("4_xyz")
 groups=["WorldEnvironment"]
 
 [node name="Floor" type="StaticBody3D" parent="."]
