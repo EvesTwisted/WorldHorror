@@ -1,0 +1,20 @@
+name: Verify Godot Project
+on:
+  push:
+    branches: [ master ]
+
+jobs:
+  verify:
+    name: Verify Godot Project
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Set up Godot
+        uses: abarichello/godot-ci@v0.4
+        with:
+          godot-version: '4.5.2'
+
+      - name: Run Godot Headless Verification
+        run: godot --headless --path . --quit
