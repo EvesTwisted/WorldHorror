@@ -62,7 +62,7 @@ func _physics_process(delta: float) -> void:
 	stress_changed.emit(static_stress)
 
 	# Movement
-	var input_dir = Input.get_vector("move_left", "move_right", "move_forward", "move_backward")
+	var input_dir = Input.get_vector("move_left_button", "move_right_button", "move_forward_button", "move_backward_button")
 	var direction = (transform.basis * Vector3(input_dir.x, 0, input_dir.y)).normalized()
 	var is_sprinting = Input.is_action_pressed("sprint")
 	var speed = sprint_speed if is_sprinting else walk_speed
